@@ -1,4 +1,6 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'prop... Remove this comment to see the full error message
 import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { cloneElement, useRef, useId } from 'react';
 import cx from 'clsx';
 import { childrenPropType } from '../helpers/propTypes';
@@ -6,23 +8,23 @@ import { getTabsCount as getTabsCountHelper } from '../helpers/count';
 import { deepMap } from '../helpers/childrenDeepMap';
 import { isTabList, isTabPanel, isTab } from '../helpers/elementTypes';
 
-function isNode(node) {
+function isNode(node: any) {
   return node && 'getAttribute' in node;
 }
 
 // Determine if a node from event.target is a Tab element
-function isTabNode(node) {
+function isTabNode(node: any) {
   return isNode(node) && node.getAttribute('data-rttab');
 }
 
 // Determine if a tab node is disabled
-function isTabDisabled(node) {
+function isTabDisabled(node: any) {
   return isNode(node) && node.getAttribute('aria-disabled') === 'true';
 }
 
-let canUseActiveElement;
+let canUseActiveElement: any;
 
-function determineCanUseActiveElement(environment) {
+function determineCanUseActiveElement(environment: any) {
   const env =
     environment || (typeof window !== 'undefined' ? window : undefined);
 
@@ -68,12 +70,12 @@ const propTypes = {
   environment: PropTypes.object,
 };
 
-const UncontrolledTabs = (props) => {
+const UncontrolledTabs = (props: any) => {
   let tabNodes = useRef([]);
   let tabIds = useRef([]);
   const ref = useRef();
 
-  function setSelected(index, event) {
+  function setSelected(index: any, event: any) {
     // Check index boundary
     if (index < 0 || index >= getTabsCount()) return;
 
@@ -83,7 +85,7 @@ const UncontrolledTabs = (props) => {
     onSelect(index, selectedIndex, event);
   }
 
-  function getNextTab(index) {
+  function getNextTab(index: any) {
     const count = getTabsCount();
 
     // Look for non-disabled tab from index to the last tab on the right
@@ -105,7 +107,7 @@ const UncontrolledTabs = (props) => {
     return index;
   }
 
-  function getPrevTab(index) {
+  function getPrevTab(index: any) {
     let i = index;
 
     // Look for non-disabled tab from index to first tab on the left
@@ -161,7 +163,7 @@ const UncontrolledTabs = (props) => {
     return getTabsCountHelper(children);
   }
 
-  function getTab(index) {
+  function getTab(index: any) {
     return tabNodes.current[`tabs-${index}`];
   }
 
@@ -190,7 +192,7 @@ const UncontrolledTabs = (props) => {
     }
 
     // Map children to dynamically setup refs
-    return deepMap(children, (child) => {
+    return deepMap(children, (child: any) => {
       let result = child;
 
       // Clone TabList and Tab components to have refs
@@ -210,16 +212,16 @@ const UncontrolledTabs = (props) => {
         if (canUseActiveElement && env) {
           wasTabFocused = React.Children.toArray(child.props.children)
             .filter(isTab)
-            .some((tab, i) => env.document.activeElement === getTab(i));
+            .some((tab: any, i: any) => env.document.activeElement === getTab(i));
         }
 
         result = cloneElement(child, {
-          children: deepMap(child.props.children, (tab) => {
+          children: deepMap(child.props.children, (tab: any) => {
             const key = `tabs-${listIndex}`;
             const selected = selectedIndex === listIndex;
 
             const props = {
-              tabRef: (node) => {
+              tabRef: (node: any) => {
                 tabNodes.current[key] = node;
               },
               id: tabIds.current[listIndex],
@@ -228,8 +230,10 @@ const UncontrolledTabs = (props) => {
             };
 
             if (selectedTabClassName)
+              // @ts-expect-error TS(2339): Property 'selectedClassName' does not exist on typ... Remove this comment to see the full error message
               props.selectedClassName = selectedTabClassName;
             if (disabledTabClassName)
+              // @ts-expect-error TS(2339): Property 'disabledClassName' does not exist on typ... Remove this comment to see the full error message
               props.disabledClassName = disabledTabClassName;
 
             listIndex++;
@@ -243,8 +247,10 @@ const UncontrolledTabs = (props) => {
           selected: selectedIndex === index,
         };
 
+        // @ts-expect-error TS(2339): Property 'forceRender' does not exist on type '{ i... Remove this comment to see the full error message
         if (forceRenderTabPanel) props.forceRender = forceRenderTabPanel;
         if (selectedTabPanelClassName)
+          // @ts-expect-error TS(2339): Property 'selectedClassName' does not exist on typ... Remove this comment to see the full error message
           props.selectedClassName = selectedTabPanelClassName;
 
         index++;
@@ -256,7 +262,7 @@ const UncontrolledTabs = (props) => {
     });
   }
 
-  function handleKeyDown(e) {
+  function handleKeyDown(e: any) {
     const { direction, disableUpDownKeys, disableLeftRightKeys } = props;
     if (isTabFromContainer(e.target)) {
       let { selectedIndex: index } = props;
@@ -328,7 +334,7 @@ const UncontrolledTabs = (props) => {
     }
   }
 
-  function handleClick(e) {
+  function handleClick(e: any) {
     let node = e.target;
     do {
       if (isTabFromContainer(node)) {
@@ -339,6 +345,7 @@ const UncontrolledTabs = (props) => {
         const index = [].slice
           .call(node.parentNode.children)
           .filter(isTabNode)
+          // @ts-expect-error TS(2345): Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
           .indexOf(node);
         setSelected(index, e);
         return;
@@ -351,7 +358,7 @@ const UncontrolledTabs = (props) => {
    * If the clicked element is not a Tab, it returns false.
    * If it finds another Tabs container between the Tab and `this`, it returns false.
    */
-  function isTabFromContainer(node) {
+  function isTabFromContainer(node: any) {
     // return immediately if the clicked element is not a Tab.
     if (!isTabNode(node)) {
       return false;
@@ -369,37 +376,63 @@ const UncontrolledTabs = (props) => {
     return false;
   }
   const {
-    children, // unused
+    // unused
+    children,
+
     className,
-    disabledTabClassName, // unused
+
+    // unused
+    disabledTabClassName,
+
     domRef,
-    focus, // unused
-    forceRenderTabPanel, // unused
-    onSelect, // unused
-    selectedIndex, // unused
-    selectedTabClassName, // unused
-    selectedTabPanelClassName, // unused
-    environment, // unused
-    disableUpDownKeys, // unused
-    disableLeftRightKeys, // unused
+
+    // unused
+    focus,
+
+    // unused
+    forceRenderTabPanel,
+
+    // unused
+    onSelect,
+
+    // unused
+    selectedIndex,
+
+    // unused
+    selectedTabClassName,
+
+    // unused
+    selectedTabPanelClassName,
+
+    // unused
+    environment,
+
+    // unused
+    disableUpDownKeys,
+
+    // unused
+    disableLeftRightKeys,
+
     ...attributes
-  } = {
+  }: any = {
     ...defaultProps,
     ...props,
   };
   return (
+    // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
     <div
       {...attributes}
       className={cx(className)}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      ref={(node) => {
+      ref={(node: any) => {
         ref.current = node;
         if (domRef) domRef(node);
       }}
       data-rttabs
     >
       {getChildren()}
+    // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
     </div>
   );
 };

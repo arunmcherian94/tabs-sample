@@ -1,4 +1,6 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'prop... Remove this comment to see the full error message
 import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { useEffect, useRef } from 'react';
 import cx from 'clsx';
 
@@ -33,7 +35,7 @@ const propTypes = {
   tabRef: PropTypes.func, // private
 };
 
-const Tab = (props) => {
+const Tab = (props: any) => {
   let nodeRef = useRef();
   const {
     children,
@@ -47,7 +49,7 @@ const Tab = (props) => {
     tabIndex,
     tabRef,
     ...attributes
-  } = {
+  }: any = {
     ...defaultProps,
     ...props,
   };
@@ -59,13 +61,14 @@ const Tab = (props) => {
   }, [selected, focus]);
 
   return (
+    // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
     <li
       {...attributes}
       className={cx(className, {
         [selectedClassName]: selected,
         [disabledClassName]: disabled,
       })}
-      ref={(node) => {
+      ref={(node: any) => {
         nodeRef.current = node;
         if (tabRef) tabRef(node);
       }}
@@ -78,6 +81,7 @@ const Tab = (props) => {
       data-rttab
     >
       {children}
+    // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
     </li>
   );
 };

@@ -1,12 +1,19 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
+// @ts-expect-error TS(6142): Module '../Tab' was resolved to '/Users/aruncheria... Remove this comment to see the full error message
 import Tab from '../Tab';
+// @ts-expect-error TS(6142): Module '../TabList' was resolved to '/Users/arunch... Remove this comment to see the full error message
 import TabList from '../TabList';
+// @ts-expect-error TS(6142): Module '../TabPanel' was resolved to '/Users/arunc... Remove this comment to see the full error message
 import TabPanel from '../TabPanel';
+// @ts-expect-error TS(6142): Module '../Tabs' was resolved to '/Users/aruncheri... Remove this comment to see the full error message
 import Tabs from '../Tabs';
 
+// @ts-expect-error TS(2708): Cannot use namespace 'jest' as a value.
 jest.mock('react', () => {
+  // @ts-expect-error TS(2708): Cannot use namespace 'jest' as a value.
   const originalModule = jest.requireActual('react');
 
   return {
@@ -15,37 +22,54 @@ jest.mock('react', () => {
   };
 });
 
+// @ts-expect-error TS(2582): Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('<Tabs />', () => {
-  let consoleErrorMock;
+  let consoleErrorMock: any;
 
-  function assertPropTypeWarning(message, nth = 1) {
+  function assertPropTypeWarning(message: any, nth = 1) {
+    // @ts-expect-error TS(2304): Cannot find name 'expect'.
     expect(consoleErrorMock).toHaveBeenNthCalledWith(
       nth,
+      // @ts-expect-error TS(2304): Cannot find name 'expect'.
       expect.anything(),
+      // @ts-expect-error TS(2304): Cannot find name 'expect'.
       expect.anything(),
+      // @ts-expect-error TS(2304): Cannot find name 'expect'.
       expect.stringMatching(message),
+      // @ts-expect-error TS(2304): Cannot find name 'expect'.
       expect.anything(),
     );
   }
 
+  // @ts-expect-error TS(2304): Cannot find name 'beforeEach'.
   beforeEach(() => {
+    // @ts-expect-error TS(2708): Cannot use namespace 'jest' as a value.
     consoleErrorMock = jest.spyOn(console, 'error').mockImplementation();
   });
 
+  // @ts-expect-error TS(2304): Cannot find name 'afterEach'.
   afterEach(() => {
     consoleErrorMock.mockRestore();
   });
 
+  // @ts-expect-error TS(2582): Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('errors', () => {
+    // @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
     test('should result with warning when tabs/panels are imbalanced and it should ignore non tab children', () => {
       render(
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Tabs>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
+            // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
             <div>+</div>
           </TabList>
 
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel>Hello Foo</TabPanel>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel>Hello Bar</TabPanel>
         </Tabs>,
       );
@@ -60,16 +84,24 @@ describe('<Tabs />', () => {
       );
     });
 
+    // @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
     test('should result with warning when multiple tablist components exist', () => {
       render(
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Tabs>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
           </TabList>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
           </TabList>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel />
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel />
         </Tabs>,
       );
@@ -79,14 +111,21 @@ describe('<Tabs />', () => {
       );
     });
 
+    // @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
     test('should result with warning when tab outside of tablist', () => {
       render(
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Tabs>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
           </TabList>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Tab>Foo</Tab>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel />
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel />
         </Tabs>,
       );
@@ -96,12 +135,17 @@ describe('<Tabs />', () => {
       );
     });
 
+    // @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
     test('should result with warning when defaultIndex and selectedIndex set', () => {
       render(
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Tabs selectedIndex={1} defaultIndex={1} onSelect={() => {}}>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
           </TabList>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel>Foo</TabPanel>
         </Tabs>,
       );
@@ -111,32 +155,47 @@ describe('<Tabs />', () => {
       );
     });
 
+    // @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
     test('should throw when mode of component changes', () => {
       const onSelect = () => {};
       const { rerender } = render(
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Tabs defaultIndex={1} onSelect={onSelect}>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo2</Tab>
           </TabList>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel>Foo</TabPanel>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel>Foo2</TabPanel>
         </Tabs>,
       );
 
+      // @ts-expect-error TS(2708): Cannot use namespace 'jest' as a value.
       const consoleLogMock = jest.spyOn(console, 'log').mockImplementation();
       try {
         rerender(
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <Tabs selectedIndex={0} onSelect={onSelect}>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TabList>
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <Tab>Foo</Tab>
+              // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
               <Tab>Foo2</Tab>
             </TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TabPanel>Foo</TabPanel>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <TabPanel>Foo2</TabPanel>
           </Tabs>,
         );
       } catch (e) {
+        // @ts-expect-error TS(2304): Cannot find name 'expect'.
         expect(e.message).toContain(
           'Switching between controlled mode (by using `selectedIndex`) and uncontrolled mode is not supported in `Tabs`.',
         );
@@ -145,10 +204,14 @@ describe('<Tabs />', () => {
       }
     });
 
+    // @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
     test('should result with warning when tabs/panels are imbalanced', () => {
       render(
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Tabs>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
           </TabList>
         </Tabs>,
@@ -164,12 +227,17 @@ describe('<Tabs />', () => {
       );
     });
 
+    // @ts-expect-error TS(2582): Cannot find name 'test'. Do you need to install ty... Remove this comment to see the full error message
     test('should result with warning when onSelect missing when selectedIndex set', () => {
       render(
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Tabs selectedIndex={1}>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabList>
+            // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <Tab>Foo</Tab>
           </TabList>
+          // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <TabPanel>Foo</TabPanel>
         </Tabs>,
       );

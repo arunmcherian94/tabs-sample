@@ -1,4 +1,6 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'prop... Remove this comment to see the full error message
 import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React from 'react';
 import cx from 'clsx';
 
@@ -20,7 +22,7 @@ const propTypes = {
   selected: PropTypes.bool, // private
   selectedClassName: PropTypes.string,
 };
-const TabPanel = (props) => {
+const TabPanel = (props: any) => {
   const {
     children,
     className,
@@ -29,12 +31,13 @@ const TabPanel = (props) => {
     selected,
     selectedClassName,
     ...attributes
-  } = {
+  }: any = {
     ...defaultProps,
     ...props,
   };
 
   return (
+    // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
     <div
       {...attributes}
       className={cx(className, {
@@ -45,6 +48,7 @@ const TabPanel = (props) => {
       aria-labelledby={`tab${id}`}
     >
       {forceRender || selected ? children : null}
+    // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
     </div>
   );
 };
