@@ -1,10 +1,13 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'prop... Remove this comment to see the full error message
 import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { useEffect, useState } from 'react';
 import {
   childrenPropType,
   onSelectPropType,
   selectedIndexPropType,
 } from '../helpers/propTypes';
+// @ts-expect-error TS(6142): Module './UncontrolledTabs' was resolved to '/User... Remove this comment to see the full error message
 import UncontrolledTabs from './UncontrolledTabs';
 import { getTabsCount } from '../helpers/count';
 
@@ -43,11 +46,11 @@ const defaultProps = {
   disableLeftRightKeys: false,
 };
 
-const getModeFromProps = (props) => {
+const getModeFromProps = (props: any) => {
   return props.selectedIndex === null ? MODE_UNCONTROLLED : MODE_CONTROLLED;
 };
 
-const checkForIllegalModeChange = (props, mode) => {
+const checkForIllegalModeChange = (props: any, mode: any) => {
   if (
     process.env.NODE_ENV !== 'production' &&
     mode != undefined &&
@@ -67,7 +70,7 @@ For more information about controlled and uncontrolled mode of react-tabs see ht
  *   focus: Because we never remove focus from the Tabs this state is only used to indicate that we should focus the current tab.
  *          It is initialized from the prop defaultFocus, and after the first render it is reset back to false. Later it can become true again when using keys to navigate the tabs.
  */
-const Tabs = (props) => {
+const Tabs = (props: any) => {
   const {
     children,
     defaultFocus,
@@ -75,7 +78,7 @@ const Tabs = (props) => {
     focusTabOnClick,
     onSelect,
     ...attributes
-  } = {
+  }: any = {
     ...defaultProps,
     ...props,
   };
@@ -104,7 +107,7 @@ const Tabs = (props) => {
 
   checkForIllegalModeChange(attributes, mode);
 
-  const handleSelected = (index, last, event) => {
+  const handleSelected = (index: any, last: any, event: any) => {
     // Call change event handler
     if (typeof onSelect === 'function') {
       // Check if the change event handler cancels the tab change
@@ -133,6 +136,7 @@ const Tabs = (props) => {
   delete subProps.defaultFocus;
   delete subProps.defaultIndex;
   delete subProps.focusTabOnClick;
+  // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   return <UncontrolledTabs {...subProps}>{children}</UncontrolledTabs>;
 };
 

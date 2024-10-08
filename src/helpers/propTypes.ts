@@ -1,23 +1,22 @@
 import { deepForEach } from './childrenDeepMap';
 import { isTab, isTabList, isTabPanel } from './elementTypes';
 
-export function childrenPropType(props, propName, componentName) {
+export function childrenPropType(props: any, propName: any, componentName: any) {
   let error;
   let tabsCount = 0;
   let panelsCount = 0;
   let tabListFound = false;
-  const listTabs = [];
+  const listTabs: any = [];
   const children = props[propName];
 
-  deepForEach(children, (child) => {
+  deepForEach(children, (child: any) => {
     if (isTabList(child)) {
       if (
         child.props &&
         child.props.children &&
         typeof child.props.children === 'object'
       ) {
-        deepForEach(child.props.children, (listChild) =>
-          listTabs.push(listChild),
+        deepForEach(child.props.children, (listChild: any) => listTabs.push(listChild),
         );
       }
 
@@ -52,11 +51,11 @@ export function childrenPropType(props, propName, componentName) {
 }
 
 export function onSelectPropType(
-  props,
-  propName,
-  componentName,
-  location,
-  propFullName,
+  props: any,
+  propName: any,
+  componentName: any,
+  location: any,
+  propFullName: any,
 ) {
   const prop = props[propName];
   const name = propFullName || propName;
@@ -82,11 +81,11 @@ export function onSelectPropType(
 }
 
 export function selectedIndexPropType(
-  props,
-  propName,
-  componentName,
-  location,
-  propFullName,
+  props: any,
+  propName: any,
+  componentName: any,
+  location: any,
+  propFullName: any,
 ) {
   const prop = props[propName];
   const name = propFullName || propName;
